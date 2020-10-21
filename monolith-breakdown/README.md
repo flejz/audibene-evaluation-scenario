@@ -113,9 +113,9 @@ Where:
 
 ## Decoupling Journey
 
-### Before it start
+### Before it starts
 
-Operational Readiness is a pre-requiment before start any decoupling from a monolith, so ensuring ways to integrate, test, deploy, monitor and trace data is a Must. Usually it can be achieved while decoupling the first or second.
+Operational Readiness is a pre-requiment before start any decoupling from a monolith, so ensuring ways to integrate, test, deploy, monitor and trace data is a must. Usually it can be achieved while decoupling the first or second service.
 
 ### Guiding concepts
 
@@ -124,7 +124,7 @@ Core domains should be avoided in the early stages since it may have huge impact
 
 Decoupling must be done vertically, so user facing interfaces and the data comes along with the capability. Each service might required different types of DBs for different applications, so redesigns at this stage might happen. A data migration must be taken into consideration when planning a decoupling.
 
-After the early stages/first services, an analysis of what requires changes more often should be made. By decoupling services that keeps changing all the time the change pace increases with scoped work, not having to wait it counterpart monolith.
+After the early stages/first services, an analysis of what requires changes more often should be made. By decoupling services that requires changes more often the changing and delivery pace increases once it does not have to wait its counterpart monolith.
 
 Not necessarily the whole monolith needs to be taken apart. The decoupling necessity might raise from a need to change, and this can only be achieved by measuring some sort of metric.
 
@@ -134,9 +134,17 @@ The Notification Service seems to be a good candidate since it does not hold any
 At this stage some Infrastructure as Code might also be required to provision the Notification Service depencies, such as the Event Streams for instance.
 
 The Chat Service seems to be the less dangerous choice after the ecosystem gets more mature with one Service already running.
-The fact it holds non-critical data also helps in the decision. Data migration must be in place. At this stage, a interface must be exposed internally to be consumed by the monolith. Chat requests for the monolith get routed to the Chart Service.
+The fact it holds non-critical data also helps in the decision. Data migration must be in place. At this stage, an interface must be exposed internally to be consumed by the monolith. Chat requests for the monolith get routed to the Chat Service.
 
-With maturity enough, more likely to be changed services should be decoupled next. I am assuming Appointment requires constant improvement due to its high importance.
+With more experience and the ecosystem more mature, more likely to be changed services should be decoupled next. I am assuming Appointment requires constant improvement due to its high importance.
 
 The migration should keep going on the remaining services until there is no necessity to migrate any further.
 
+At some point public interfaces for each service (which must have one) should be taken as the primary route. For that maybe other edge services might have to be decoupled as well, such as Authentication for instance.
+
+
+### Reference
+
+Martin's Fowler website - https://martinfowler.com
+Domain Driven Design. Tackling Complexity in the Heart of Software by Eric Evans (ongoing reading)
+Experience with previous monolith decoupling projects
