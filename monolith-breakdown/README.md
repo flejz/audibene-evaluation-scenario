@@ -101,6 +101,7 @@ Where:
 * **Device Service** will hold Device information. Will be dependant on Logistics services to acquire current statuses.
 * **Logistics Service** will be responsible for the operations regarding Devices and Appointments.
 * **Notification Service** will broadcast notifications on certain ecosystem events. Websocket tunnels as well as any other kind of notification (SMS, E-mail, Push notication) will be handled here.
+* **Chat Service** will register incoming message and propagate event to Notification Service that a new msg has arrived. It will not be dependant of any service initially, just dependant of a sticky event streaming.
 
 ### SRD
 
@@ -110,4 +111,32 @@ Where:
 
 ![ERD](images/erd.png)
 
-## Migration plan
+## Decoupling Journey
+
+### Before it start
+
+Operational Readiness is a pre-requiment before start any decoupling from a monolith, so ensuring ways to integrate, test, deploy, monitor and trace data is a Must. Usually it can be achieved while decoupling the first or second.
+
+### Guiding concepts
+
+It is clever to start by chosing the less-important edge services with minimal dependecy back to the monolith.
+Core domains should be avoided in the early stages since it may have huge impact in the business operation in case anything needs to be improved.
+
+Decoupling must be done vertically, so user facing interfaces and the data comes along with the capability. Each service might required different types of DBs for different applications, so redesigns at this stage might happen. A data migration must be taken into consideration when planning a decoupling.
+
+After the early stages/first services, an analysis of what requires changes more often should be made. By decoupling services that keeps changing all the time the change pace increases with scoped work, not having to wait it counterpart monolith.
+
+Not necessarily the whole monolith needs to be taken apart. The decoupling necessity might raise from a need to change, and this can only be achieved by measuring some sort of metric.
+
+### Plan
+
+The Notification Service seems to be a good candidate since it does not hold any sort of data. All the non-functional requirements can be worked for this monolith, CI/CD, Infrastructure, Testing, Monitoring, Tracing, etc.
+At this stage some Infrastructure as Code might also be required to provision the Notification Service depencies, such as the Event Streams for instance.
+
+The Chat Service seems to be the less dangerous choice after the ecosystem gets more mature with one Service already running.
+The fact it holds non-critical data also helps in the decision. Data migration must be in place. At this stage, a interface must be exposed internally to be consumed by the monolith. Chat requests for the monolith get routed to the Chart Service.
+
+With maturity enough, more likely to be changed services should be decoupled next. I am assuming Appointment requires constant improvement due to its high importance.
+
+The migration should keep going on the remaining services until there is no necessity to migrate any further.
+
