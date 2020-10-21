@@ -24,11 +24,11 @@ Required index for any given Account:
 
 ## ERD:
 
-![ERD](account-service/images/erd.png)
+![ERD](images/erd.png)
 
 ## Entity:
 
-![DFD](account-service/images/dfd.png)
+![DFD](images/dfd.png)
 
 ## OpenAPI Specs
 
