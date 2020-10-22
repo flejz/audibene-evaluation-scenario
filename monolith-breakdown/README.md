@@ -107,7 +107,7 @@ Where:
 
 ![SRD](images/srd.png)
 
-## ERD:
+### ERD:
 
 ![ERD](images/erd.png)
 
@@ -146,5 +146,7 @@ At some point public interfaces for each service (which must have one) should be
 ### Reference
 
 Martin's Fowler website - https://martinfowler.com
+
 Domain Driven Design. Tackling Complexity in the Heart of Software by Eric Evans (ongoing reading)
+
 Experience with previous monolith decoupling projects
